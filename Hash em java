@@ -1,0 +1,28 @@
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class HashExample {
+    public static void main(String[] args) {
+        String input = "Senha123";
+        
+        try {
+            // Criar instância do algoritmo de hash (SHA-256 neste caso)
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            
+            // Aplicar o hash
+            byte[] hashBytes = digest.digest(input.getBytes());
+            
+            // Converter bytes para representação hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            
+            System.out.println("Hash SHA-256: " + hexString.toString());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+}
